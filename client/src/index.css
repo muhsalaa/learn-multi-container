@@ -1,0 +1,27 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light, dark, emerald --default;
+}
+
+/* hack to prevent layout shift on modal: https://github.com/saadeghi/daisyui/issues/3040 */
+:root:has(
+    :is(
+        .modal-open,
+        .modal:target,
+        .modal-toggle:checked + .modal,
+        .modal[open]
+      )
+  ) {
+  scrollbar-gutter: auto;
+  overflow: auto;
+}
+
+body {
+  font-family: "Lato", sans-serif;
+}
+
+@layer utilities {
+  .font-logo {
+    font-family: "Playwrite IN", sans-serif;
+  }
+}

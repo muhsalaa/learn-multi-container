@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  REGISTRY: ghcr.io
+  # github actor is the namespace docker push ghcr.io/NAMESPACE/IMAGE_NAME:latest
+  IMAGE_NAME: ${{ github.actor }}/general-api:latest
+
+jobs:
+  test-client:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: go to client folder
+        uses: cd client
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+          run_install: false
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install
+      - name: Run test
+        run: pnpm test
