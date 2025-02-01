@@ -20,7 +20,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: go to client folder
-        uses: cd client
+        run: cd client
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
